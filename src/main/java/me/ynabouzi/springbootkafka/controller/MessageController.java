@@ -26,7 +26,7 @@ public class MessageController {
 			return ResponseEntity.badRequest().body("Message cannot be empty");
 		}
 		kafkaStringProducer.sendMessage(message);
-		return ResponseEntity.ok(message);
+		return ResponseEntity.ok("Message Sent successfully");
 	}
 
 }
