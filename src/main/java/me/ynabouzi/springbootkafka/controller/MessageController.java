@@ -1,6 +1,6 @@
 package me.ynabouzi.springbootkafka.controller;
 
-import me.ynabouzi.springbootkafka.kafka.KafkaProducer;
+import me.ynabouzi.springbootkafka.kafka.Producers.KafkaStringProducer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,26 +15,21 @@ import java.util.Map;
 @RequestMapping("/api/v1/kafka")
 public class MessageController {
 
-	private final KafkaProducer kafkaProducer;
+	private final KafkaStringProducer kafkaStringProducer;
 
-	public MessageController(KafkaProducer kafkaProducer) {
-		this.kafkaProducer = kafkaProducer;
+	public MessageController(KafkaStringProducer kafkaStringProducer) {
+		this.kafkaStringProducer = kafkaStringProducer;
 	}
 
 	// http://localhost:8080/api/v1/kafka/publish?message=HelloWorld
 
 	@GetMapping("/publish")
-	public ResponseEntity<Map<String, Object>> publish(@RequestParam("message") String message) {
-		Map<String, Object> response = new HashMap<>();
+	public ResponseEntity<String> publish(@RequestParam("message") String message) {
 		if (message == null || message.isEmpty()) {
-			response.put("statusCode", HttpStatus.BAD_REQUEST.value());
-			response.put("message", "Message cannot be empty");
-			return ResponseEntity.badRequest().body(response);
+			return ResponseEntity.badRequest().body("Message cannot be empty");
 		}
-		kafkaProducer.sendMessage(message);
-		response.put("statusCode", HttpStatus.OK.value());
-		response.put("message", message);
-		return ResponseEntity.ok(response);
+		kafkaStringProducer.sendMessage(message);
+		return ResponseEntity.ok(message);
 	}
 
 }
