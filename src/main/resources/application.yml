@@ -3,7 +3,6 @@ spring:
     ansi:
       enabled: DETECT
 
-
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
@@ -13,20 +12,20 @@ spring:
       # the key and value deserializers are used to deserialize (means convert from byte to object) the key and value of the message
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-    #      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+     #value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
     producer:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: '*'
-#        value-serializer: org.apache.kafka.common.serialization.StringSerializer
+     #value-serializer: org.apache.kafka.common.serialization.StringSerializer
 logging:
   pattern:
-#    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     console: "%d{yyyy-MM-dd HH:mm:ss} [%-5.5thread] %-5level %-0.13logger - %msg%n"
+#    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 #    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
