@@ -14,4 +14,10 @@ public class KafkaTopicConfig {
 				.partitions(10)
 				.build();
 	}
+	@Bean
+	public NewTopic topic2() {
+		return TopicBuilder.name("topic2")
+				.partitions(10)
+				.build();
+	}
 }
