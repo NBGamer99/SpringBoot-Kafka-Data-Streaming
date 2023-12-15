@@ -27,4 +27,6 @@ spring:
 #        value-serializer: org.apache.kafka.common.serialization.StringSerializer
 logging:
   pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     console: "%d{yyyy-MM-dd HH:mm:ss} [%-5.5thread] %-5level %-0.13logger - %msg%n"
+#    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
